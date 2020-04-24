@@ -1,31 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <title>Distance Matrix Service</title>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+   <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <main >
+      <div id="store-temp-latStart" hidden ></div>
+      <div id="store-temp-latEnd" hidden ></div>
+      <div id="store-temp-lngStart" hidden></div>
+      <div id="store-temp-lngEnd" hidden></div>
+      <div id="content-currLoc"></div>
+      <!-- <link href = "index-currLoc.html" rel="import" /> -->
+      <!-- <div w3-include-html = "index-currLoc.html"></div> -->
+      <div class="card col-4">
+        <h3 class="card-header text-uppercase">Search for a City:</h3>
+        <form id="user-form" class="card-body">
+          <label class="form-label" for="city"></label>
+          <input name="city-input" id="city-input" type="text" autofocus="true" class="form-input"/>
+          <button type="submit" id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
+        </form>
+      </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <!-- <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"> -->
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
-  <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
-  <title>Weather Forecast</title>
-</head>
-
-<body >
-  <header >
-    <h2 class="header" >
-      Weather Dashboard
-    </h2>
-  </header>
+        <button class="search" id="search-button" >🔍</button>
 
 
-  <main >
+    <div id="right-panel">
+      <div id="inputs">
 
+      </div>
+      <div>
+        <strong>Results</strong>
+      </div>
+      <div id="output"></div>
+    </div>
+    <div id="map"></div>
   </main>
+   <!-- <script src="./assets/js/script2.js"></script> -->
+  <script src="./assets/js/scriptCopy.js"></script>
+
+    <!-- <script async await defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF358DDIA1xQSD283AvlWr7F7r6NfBzMU&callback=initMap">
+    </script> -->
 
 
 
-    <script src="./assets/js/script.js"></script>
-
-    </body>
+    <script async await defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF358DDIA1xQSD283AvlWr7F7r6NfBzMU&callback=initMap">
+    </script>
+      <!-- <script src="./assets/js/script3.js"></script> -->
+      
+    <!-- <script src="./assets/js/script2.js"></script> -->
+  </body>
+  </html>

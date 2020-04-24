@@ -1,19 +1,77 @@
 
- 
- var entireFunction = function(){
- 
- var apiId = "AIzaSyDF358DDIA1xQSD283AvlWr7F7r6NfBzMU"
+  var apiId = "AIzaSyDF358DDIA1xQSD283AvlWr7F7r6NfBzMU"
 
     var latEnd
     var lngEnd
     var cnt = 0
 
+    // addd form Submit Handler 
+
+    var formSubmitHandler = function(event) {
+      event.preventDefault();
+      // get value from input element
+      var city = cityInputEl.value.trim();
+    
+      if (city) {
+        // pass the data to getUserRepos() as an argument
+        getEventDetails(city);
+        // clear the form after username is passed
+        cityInputEl.value = "";
+      }  else {
+        alert("Please enter a city"); // need to replace with a modal or eliminate //
+      }
+    };
+
+
+
+    // add getEventDetails
+    
+var getEventDetails = function(city) {
+  // event.preventDefault();
+  
+  // var city = "monterey"; // city will be dynamically pulled from "#city-input" //
+  var radius = "25"; // radius will be dynamically pulled from "#radius-input" //
+  var unit = "miles"; // default setting is miles, so possibly remove this query parameter //
+  var geoPoint = "9q924"; // leving this as an example in case we add geoHash logic //
+  var apiKey = 	"wiO6LdHQcAaR730qpDy1jHq0phsKbsxE";
+  var apiUrlTicketCity = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + city + "&apikey=" + apiKey + "";
+  
+  fetch(apiUrlTicketCity).then(function(response) {
+    return response.json()
+  })
+  .then(function(data) {
+    // add a modal here
+    // if (data.page.totalElements === 0) {
+      // add module logic here }
+    // else use the logic below {}
+    console.log(data);
+    var lat = data._embedded.events[0]._embedded.venues[0].location.latitude;
+    var lon = data._embedded.events[0]._embedded.venues[0].location.longitude;
+    console.log(lat, lon);
+
+    var apiUrlTicketEvents = "https://app.ticketmaster.com/discovery/v2/events.json?latlong=" + lat + "," + lon + "&radius=" + radius + "&unit=" + unit + "&apikey=" + apiKey + "";
+
+    fetch(apiUrlTicketEvents).then(function(response) {
+      return response.json()
+    })
+    .then(function(data) {
+      console.log(data);
+      // pass data to displayEventDetails
+      displayEventDetails(data);
+      // put the name of Dan's function here Dan function (data)
+      
+    })
+  })
+};
+    
+    
     // do not delete below line. it will give you lat and lon based on address
     // var apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=" + apiId
     // do not delete below line. it will give you lat and lon based on zip code
     // var apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zipcode + "&key=" + apiId 
     var apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?radius=25&postalCode=93940&apikey=wiO6LdHQcAaR730qpDy1jHq0phsKbsxE"
     // make a request to the url
+    // start funtion dan function (data)
     fetch(apiUrl)
       .then(function(response) {
         // request was successful
@@ -89,33 +147,8 @@
        
       }
 
-       
 
 
-
-   var mapBlock = {
-     
-        origin: 'Chicago, IL',
-        destination: 'Los Angeles, CA',
-        waypoints: [
-          {
-            location: 'Joplin, MO',
-            stopover: false
-          },{
-            location: 'Oklahoma City, OK',
-            stopover: true
-          }],
-        provideRouteAlternatives: false,
-        travelMode: 'DRIVING',
-        drivingOptions: {
-          departureTime: new Date(/* now, or future date */),
-          trafficModel: 'pessimistic'
-        },
-        unitSystem: google.maps.UnitSystem.IMPERIAL
-      }
-
-      mapBlock.route()
-  //     // DirectionsService.route()
 
       document.querySelector("#search-button").addEventListener("click",function(){
         // function initMap() {
@@ -152,7 +185,7 @@
             origins: [origin1],
             destinations: [destinationB],
             travelMode: 'DRIVING',
-            unitSystem: google.maps.UnitSystem.METRIC,
+            unitSystem: google.maps.UnitSystem.IMPERIAL,
             avoidHighways: false,
             avoidTolls: false
           }, function(response, status) {
@@ -207,40 +240,3 @@
           }
           markersArray = [];
         }
-
-      }
-
-      // setTimeout(entireFunction,1000)
-
-      // entireFunction()
-
-      function initMap() {
-        var directionsService = new google.maps.DirectionsService();
-        var directionsRenderer = new google.maps.DirectionsRenderer();
-        var chicago = new google.maps.LatLng(41.850033, -87.6500523);
-        var mapOptions = {
-          zoom:7,
-          center: chicago
-        }
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        directionsRenderer.setMap(map);
-
-  
-      
-      function calcRoute() {
-        var start = document.getElementById('start').value;
-        var end = document.getElementById('end').value;
-        var request = {
-          origin: start,
-          destination: end,
-          travelMode: 'DRIVING'
-        };
-        directionsService.route(request, function(result, status) {
-          if (status == 'OK') {
-            directionsRenderer.setDirections(result);
-          }
-        });
-      }
-      alert()
-      console.log(google)
-      }
